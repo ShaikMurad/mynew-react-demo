@@ -1,0 +1,56 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  /* color: orange; */
+}
+.user-name {
+  color: crimson;
+  font-style: italic;
+}
+.user-pic{
+  height: 250px;
+  width: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.movie-container{
+  /* background-color: red; */
+  width: 340px;
+}
+.movie-poster{
+  height: 640px;
+  width: 100%;
+  object-fit: cover;
+}
+.movie-spec{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.movie-name{
+  font-size: 24px;
+  margin: 0px;
+
+}
+.movie-rating{
+  font-size: 20px;
+
+}
+.movie-summary{
+  margin-top: 0;
+}
+.movie-list{
+  /* display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-around; */
+
+  /* grid-template-columns:1fr 1fr 1fr; */
+  /* grid-template-columns:repeat(5, 1fr); */
+  /* RAM */ 
+  display: grid;
+  grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  justify-items: center;
+}
