@@ -50,12 +50,32 @@ export default function App() {
       <Welcome name="Paahil" /> */}
 
       {/* {names.map(num => <Welcome name={num} />)} */}
-      <MovieList />
+      {/* <MovieList /> */}
+      <AddColor />
 
     </div>
   );
 }
 
+function AddColor() {
+  const [color, setColor] = useState("crimson");
+
+  const styles = {
+    background: color,
+  };
+  return (
+    <div>
+      <input
+        style={styles}
+        type="text"
+        onChange={(event) => setColor(event.target.value)}
+        value={color}
+      />
+
+    </div>
+  )
+
+};
 function MovieList() {
   const movielist = [
     {
@@ -128,21 +148,23 @@ function MovieList() {
 
   return (
     <div className="movie-list">
-      {movielist.map((mv) => (
-        <Movie movie={mv} />
+      {movielist.map((mv, index) => (
+        <Movie key={index} movie={mv} />
       ))}
 
     </div>
   )
 }
 function Movie({ movie }) {
+  // Manage state | Inndependent | Accelerator
   const [Show, setShow] = useState(true);
   const styles = {
     color: movie.rating > 8.5 ? "green" : "crimson",
   };
-  const summarystyles = {
-    display: Show ? "block" : "none",
-  };
+  // Derived state |dependent | Speedometer 
+  // const summarystyles = {
+  //   display: Show ? "block" : "none",
+  // };
   return (
     <div className="movie-container">
       <img className="movie-poster " src={movie.poster} alt={movie.name} />
@@ -151,8 +173,11 @@ function Movie({ movie }) {
         <p style={styles} className="movie-rating">⭐{movie.rating}</p>
       </div>
       <button onClick={() => setShow(!Show)}>Toggle Summary</button>
-      <p style={summarystyles} className="movie-summary">{movie.summary}</p>
+      {/* Conditional Styling */}
+      {/* <p style={summarystyles} className="movie-summary">{movie.summary}</p> */}
 
+      {/* Conditional rendering - Removed from DOM */}
+      {Show ? <p className="movie-summary">{movie.summary}</p> : null}
       <Counter />
     </div>
   )
