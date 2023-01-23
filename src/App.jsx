@@ -1,8 +1,11 @@
 import { useState } from "react";
 import "./App.css";
+import { Welcome } from "./Welcome";
+import Button from '@mui/material/Button';
 
 export default function App() {
   const names = ["Muradcherry", "Paahil", "Daahil", "Jaayu"]
+
   const users = [
     {
       name: "Muradcherry",
@@ -50,8 +53,9 @@ export default function App() {
       <Welcome name="Paahil" /> */}
 
       {/* {names.map(num => <Welcome name={num} />)} */}
-      {/* <MovieList /> */}
-      <AddColor />
+      <MovieList />
+      {/* <AddColor /> */}
+
 
     </div>
   );
@@ -63,6 +67,7 @@ function AddColor() {
   const styles = {
     background: color,
   };
+  const [colorList, setcolorList] = useState(["skyblue", "yellow", "green"]);
   return (
     <div>
       <input
@@ -71,13 +76,25 @@ function AddColor() {
         onChange={(event) => setColor(event.target.value)}
         value={color}
       />
-
+      <button onClick={() => setcolorList([...colorList, color])}>Add Color</button>
+      {colorList.map((clr) =>
+        <ColorBox color={clr} />
+      )}
     </div>
-  )
+  );
 
-};
+}
+function ColorBox({ color }) {
+  const styles = {
+    width: '250px',
+    height: '25px',
+    margin: '5px 0px',
+    background: color,
+  }
+  return <div style={styles}></div>
+}
 function MovieList() {
-  const movielist = [
+  const [movieList, setMovieList] = useState([
     {
       "name": "Vikram",
       "poster": "https://m.media-amazon.com/images/M/MV5BMmJhYTYxMGEtNjQ5NS00MWZiLWEwN2ItYjJmMWE2YTU1YWYxXkEyXkFqcGdeQXVyMTEzNzg0Mjkx._V1_.jpg",
@@ -144,19 +161,47 @@ function MovieList() {
       "summary": "When Earth becomes uninhabitable in the future, a farmer and ex-NASA\\n pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team\\n of researchers, to find a new planet for humans.",
       "rating": 8.8
     }
-  ]
+  ]);
+  const [name, setName] = useState("");
+  const [poster, setPoster] = useState("");
+  const [rating, setRating] = useState("");
+  const [summary, setSummary] = useState("");
+
 
   return (
-    <div className="movie-list">
-      {movielist.map((mv, index) => (
-        <Movie key={index} movie={mv} />
-      ))}
+    <div>
+      <div className="add-movie-form">
+        <input onChange={(event) => setName(event.target.value)} type="text" placeholder="Name" />
+        <input onChange={(event) => setPoster(event.target.value)} type="text" placeholder="Poster" />
+        <input onChange={(event) => setRating(event.target.value)} type="text" placeholder="Rating" />
+        <input onChange={(event) => setSummary(event.target.value)} type="text" placeholder="Summary" />
+        {/*Copy existing movieList & add newMovie to it  */}
+        <Button
+          onClick={() => {
+            const newMovie = {
+              "name": name,
+              "poster": poster,
+              "rating": rating,
+              "summary": summary,
+            };
+            setMovieList([...movieList, newMovie]);
+            console.log(newMovie);
 
+          }}
+          variant="contained">Contained</Button>
+      </div>
+      <div className="movie-list">
+        {movieList.map((mv, index) => (
+          <Movie key={index} movie={mv} />
+        ))}
+
+      </div>
     </div>
-  )
+
+  );
 }
 function Movie({ movie }) {
-  // Manage state | Inndependent | Accelerator
+  // Manage state | Independent | Accelerator
   const [Show, setShow] = useState(true);
   const styles = {
     color: movie.rating > 8.5 ? "green" : "crimson",
@@ -197,21 +242,6 @@ function Counter() {
     </div>
   )
 }
-
-function Welcome({ name }) {
-  // const name = props.name
-  return (
-    <div>
-      <h1>
-        Hello, <span className="user-name">{name}</span>🤩😎❤️
-      </h1>
-
-      <p>This is super cool</p>
-    </div>
-  );
-}
-
-
 
 function Msg({ pic, name }) {
   // const name = props.name
