@@ -2,6 +2,7 @@ import "./App.css";
 import { Welcome } from "./Welcome";
 import { AddColor } from "./AddColor";
 import { MovieList } from "./MovieList";
+import { TicTacToe } from "./TicTacToe";
 
 export default function App() {
   const names = ["Muradcherry", "Paahil", "Daahil", "Jaayu"]
@@ -53,8 +54,10 @@ export default function App() {
       <Welcome name="Paahil" /> */}
 
       {/* {names.map(num => <Welcome name={num} />)} */}
-      <MovieList />
+      {/* <Counter /> */}
+      {/* <MovieList /> */}
       {/* <AddColor /> */}
+      <TicTacToe />
 
 
     </div>
