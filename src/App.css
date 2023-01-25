@@ -72,4 +72,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+.not-found{
+  width: 100%;
+  object-fit: cover;
+  max-width: 600px;
+}
+.game-box:hover{
+  background: hsl(0deg 0% 0% / 6%);
+}
+.board{
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: repeat(3, 1fr);
+    /* background-color: orange; */
+    width: min-content;
+    margin: 16px auto;
+
+}
+.tic-tac-toe{
+  text-align: center;
 }
