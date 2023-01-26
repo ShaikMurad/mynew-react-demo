@@ -9,9 +9,11 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from "react-router-dom";
 
 
-export function Movie({ movie }) {
+export function Movie({ movie, id }) {
     // Manage state | Independent | Accelerator
     const [Show, setShow] = useState(true);
     const styles = {
@@ -21,6 +23,7 @@ export function Movie({ movie }) {
     // const summarystyles = {
     //   display: Show ? "block" : "none",
     // };
+    const navigate = useNavigate();
     return (
         <Card className="movie-container">
             <img className="movie-poster " src={movie.poster} alt={movie.name} />
@@ -32,7 +35,16 @@ export function Movie({ movie }) {
                             onClick={() => setShow(!Show)}
                             aria-label="Toggle Summary">
                             {Show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                        </IconButton></h2>
+                        </IconButton>
+                        <IconButton
+                            color="primary"
+                            // /movie/index
+                            onClick={() => navigate(`/movies/${id}`)}
+                            aria-label="Movie details"
+                        >
+                            <InfoIcon />
+                        </IconButton>
+                    </h2>
                     <p style={styles} className="movie-rating">⭐{movie.rating}</p>
                 </div>
 

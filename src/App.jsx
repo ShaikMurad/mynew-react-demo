@@ -58,9 +58,10 @@ export default function App() {
 
       {/* {names.map(num => <Welcome name={num} />)} */}
       {/* <Counter /> */}
-      {/* <MovieList /> */}
+
       {/* <AddColor /> */}
       {/* <TicTacToe /> */}
+
 
       {/* Task */}
       {/* /movie -> MovieList */}
@@ -93,7 +94,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-
+      {/* <MovieList /> */}
     </div>
   );
 }
