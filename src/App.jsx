@@ -4,6 +4,8 @@ import { AddColor } from "./AddColor";
 import { MovieList } from "./MovieList";
 import { TicTacToe } from "./TicTacToe";
 import { Routes, Route, Link } from "react-router-dom";
+import { NotFound } from "./NotFound";
+import { Home } from "./Home";
 
 export default function App() {
   const names = ["Muradcherry", "Paahil", "Daahil", "Jaayu"]
@@ -58,15 +60,14 @@ export default function App() {
       {/* <Counter /> */}
       {/* <MovieList /> */}
       {/* <AddColor /> */}
-      <TicTacToe />
+      {/* <TicTacToe /> */}
 
       {/* Task */}
       {/* /movie -> MovieList */}
       {/* /color-game -> AddColor */}
-      {/* <nav>
+      <nav>
         <ul>
           <li>
-
             <Link to="/">Home</Link>
           </li>
           <li>
@@ -82,35 +83,19 @@ export default function App() {
         </ul>
       </nav>
 
+
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tic-tac-toe" element={<TicTacToe />} />
         <Route path="/movies" element={<MovieList />} />
         <Route path="/color-game" element={<AddColor />} />
         <Route path="*" element={<NotFound />} />
-      </Routes> */}
+      </Routes>
 
 
     </div>
   );
 }
 
-function NotFound() {
-  return (
-    <div>
-
-      <img className="not-found" src="https://miro.medium.com/max/1400/1*zE2qnVTJehut7B8P2aMn3A.gif"
-        alt="404 not found" />
-    </div>
-
-  );
-}
-function Home() {
-  return (
-    <div>
-      <h1>Welcome to the movie app😎😎😎</h1>
-    </div>
-
-  );
-}
 
