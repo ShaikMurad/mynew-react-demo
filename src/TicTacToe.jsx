@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useWindowSize from 'react-use/lib/useWindowSize'
+import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
 import Button from '@mui/material/Button';
 
