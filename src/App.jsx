@@ -1,5 +1,4 @@
 import "./App.css";
-import { Welcome } from "./Welcome";
 import { AddColor } from "./AddColor";
 import { MovieList } from "./MovieList";
 import { TicTacToe } from "./TicTacToe";
@@ -9,6 +8,14 @@ import { Home } from "./Home";
 import { useState } from "react";
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
 const INITIAL_MOVIE_LIST = [
   {
@@ -126,18 +133,26 @@ export default function App() {
   ];
 
   const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
+  const navigate = useNavigate();
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 
   return (
-    <div className="App">
+    <ThemeProvider theme={darkTheme}>
+      <Paper elevation={4} >
+        <div className="App">
 
 
-      {/* {users.map(usr =>
+          {/* {users.map(usr =>
         <Msg
           name={usr.name}
           pic={usr.pic}
         />
       )} */}
-      {/* <Msg
+          {/* <Msg
         name="Murad"
         pic="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
       />
@@ -149,61 +164,52 @@ export default function App() {
         name="Daahil"
         pic="https://wallpapers.com/images/hd/cool-profile-pictures-panda-man-gsl2ntkjj3hrk84s.jpg"
       /> */}
-      {/* <Welcome name="Muradcherry" />
+          {/* <Welcome name="Muradcherry" />
       <Welcome name="Daahil" />
       <Welcome name="Paahil" /> */}
 
-      {/* {names.map(num => <Welcome name={num} />)} */}
-      {/* <Counter /> */}
+          {/* {names.map(num => <Welcome name={num} />)} */}
+          {/* <Counter /> */}
 
-      {/* <AddColor /> */}
-      {/* <TicTacToe /> */}
-      {/* <MovieList /> */}
+          {/* <AddColor /> */}
+          {/* <TicTacToe /> */}
+          {/* <MovieList /> */}
 
-      {/* Task */}
-      {/* /movie -> MovieList */}
-      {/* /color-game -> AddColor */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/movies">Movies with Link</Link>
-          </li>
-          <li>
-            <Link to="/tic-tac-toe">Tic Tac Toe Game</Link>
+          {/* Task */}
+          {/* /movie -> MovieList */}
+          {/* /color-game -> AddColor */}
+          <AppBar position="static">
+            <Toolbar>
+              <Button onClick={() => navigate("/")} color="inherit">Home</Button>
+              <Button onClick={() => navigate("/movies")} color="inherit">Movies</Button>
+              <Button onClick={() => navigate("/tic-tac-toe")} color="inherit">Tic Tac Toe</Button>
+              <Button onClick={() => navigate("/color-game")} color="inherit">Color Game</Button>
+            </Toolbar>
+          </AppBar>
 
-          </li>
-          <li>
-            <Link to="/color-game">Color Game</Link>
-          </li>
-        </ul>
-      </nav>
-
-
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tic-tac-toe" element={<TicTacToe />} />
-        <Route path="/films" element={<Navigate replace to="/movies" />} />
-        <Route
-          path="/movies"
-          element={
-            <MovieList movieList={movieList} setMovieList={setMovieList} />}
-        />
-        {/* //id -> dynamic // */}
-        <Route
-          path="/movies/:id"
-          element={<MovieDetails movieList={movieList} />} />
-        <Route path="/color-game" element={<AddColor />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tic-tac-toe" element={<TicTacToe />} />
+            <Route path="/films" element={<Navigate replace to="/movies" />} />
+            <Route
+              path="/movies"
+              element={
+                <MovieList movieList={movieList} setMovieList={setMovieList} />}
+            />
+            {/* //id -> dynamic // */}
+            <Route
+              path="/movies/:id"
+              element={<MovieDetails movieList={movieList} />} />
+            <Route path="/color-game" element={<AddColor />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
 
 
 
-    </div>
+        </div>
+      </Paper >
+    </ThemeProvider>
   );
 }
 function MovieDetails({ movieList }) {
@@ -238,9 +244,12 @@ function MovieDetails({ movieList }) {
         </div>
         <p className="movie-summary">{movie.summary}</p>
       </div >
-      <Button onClick={() => navigate(-1)}
-        aria-label="Movie details" variant="contained">
-        <ArrowBackIcon />
+      <Button
+        startIcon={<KeyboardBackspaceIcon />}
+        variant="contained"
+        onClick={() => navigate(-1)}
+        aria-label="Movie details"
+      >
         Back
       </Button >
     </div >

@@ -98,3 +98,6 @@
 .movie-detail-container{
   max-width: 750px ;
 }
+body{
+  margin: 0px;
+}
