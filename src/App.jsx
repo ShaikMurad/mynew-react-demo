@@ -16,6 +16,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { AddMovie } from "./AddMovie";
 
 const INITIAL_MOVIE_LIST = [
   {
@@ -132,58 +135,41 @@ export default function App() {
 
   ];
 
-  const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
+
   const navigate = useNavigate();
+  const [mode, setMode] = useState("dark");
   const darkTheme = createTheme({
     palette: {
-      mode: 'dark',
+      mode: mode,
     },
   });
+  const bgStyles = {
+    borderRadius: '0px',
+    minHeight: '100vh',
 
+  }
+  const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
   return (
     <ThemeProvider theme={darkTheme}>
-      <Paper elevation={4} >
+      <Paper sx={bgStyles} elevation={4} >
         <div className="App">
-
-
-          {/* {users.map(usr =>
-        <Msg
-          name={usr.name}
-          pic={usr.pic}
-        />
-      )} */}
-          {/* <Msg
-        name="Murad"
-        pic="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-      />
-      <Msg
-        name="Cherry"
-        pic="https://1fid.com/wp-content/uploads/2022/07/aesthetic-profile-picture-2-1024x1024.jpg"
-      />
-      <Msg
-        name="Daahil"
-        pic="https://wallpapers.com/images/hd/cool-profile-pictures-panda-man-gsl2ntkjj3hrk84s.jpg"
-      /> */}
-          {/* <Welcome name="Muradcherry" />
-      <Welcome name="Daahil" />
-      <Welcome name="Paahil" /> */}
-
-          {/* {names.map(num => <Welcome name={num} />)} */}
-          {/* <Counter /> */}
-
-          {/* <AddColor /> */}
-          {/* <TicTacToe /> */}
-          {/* <MovieList /> */}
-
-          {/* Task */}
-          {/* /movie -> MovieList */}
-          {/* /color-game -> AddColor */}
           <AppBar position="static">
             <Toolbar>
               <Button onClick={() => navigate("/")} color="inherit">Home</Button>
               <Button onClick={() => navigate("/movies")} color="inherit">Movies</Button>
               <Button onClick={() => navigate("/tic-tac-toe")} color="inherit">Tic Tac Toe</Button>
               <Button onClick={() => navigate("/color-game")} color="inherit">Color Game</Button>
+              <Button onClick={() => navigate("/movies/add")} color="inherit">Add Movie</Button>
+              <Button
+                sx={{ marginLeft: "auto" }}
+                onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
+                color="inherit"
+                startIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              >
+                {mode === 'dark' ? 'light' : 'dark'} Mode
+              </Button>
+
+
             </Toolbar>
           </AppBar>
 
@@ -200,6 +186,7 @@ export default function App() {
             <Route
               path="/movies/:id"
               element={<MovieDetails movieList={movieList} />} />
+            <Route path="/movies/add" element={<AddMovie movieList={movieList} setMovieList={setMovieList} />} />
             <Route path="/color-game" element={<AddColor />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -209,7 +196,7 @@ export default function App() {
 
         </div>
       </Paper >
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 function MovieDetails({ movieList }) {
