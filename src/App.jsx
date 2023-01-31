@@ -149,6 +149,11 @@ export default function App() {
 
   }
   const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
+
+  fetch("https://63d75fb75dbd723244249e8b.mockapi.io/movies")
+    .then((data) => data.json())
+    .then((mvs) => console.log(mvs));
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Paper sx={bgStyles} elevation={4} >
