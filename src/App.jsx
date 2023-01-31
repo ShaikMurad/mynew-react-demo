@@ -2,10 +2,10 @@ import "./App.css";
 import { AddColor } from "./AddColor";
 import { MovieList } from "./MovieList";
 import { TicTacToe } from "./TicTacToe";
-import { Routes, Route, Link, useParams, useNavigate, Navigate } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 import { NotFound } from "./NotFound";
 import { Home } from "./Home";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AppBar from '@mui/material/AppBar';
@@ -13,12 +13,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { AddMovie } from "./AddMovie";
+import { MovieDetails } from "./MovieDetails";
 
 const INITIAL_MOVIE_LIST = [
   {
@@ -148,11 +148,7 @@ export default function App() {
     minHeight: '100vh',
 
   }
-  const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
-
-  fetch("https://63d75fb75dbd723244249e8b.mockapi.io/movies")
-    .then((data) => data.json())
-    .then((mvs) => console.log(mvs));
+  const [movieList, setMovieList] = useState([]);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -185,12 +181,12 @@ export default function App() {
             <Route
               path="/movies"
               element={
-                <MovieList movieList={movieList} setMovieList={setMovieList} />}
+                <MovieList />}
             />
             {/* //id -> dynamic // */}
             <Route
               path="/movies/:id"
-              element={<MovieDetails movieList={movieList} />} />
+              element={<MovieDetails />} />
             <Route path="/movies/add" element={<AddMovie movieList={movieList} setMovieList={setMovieList} />} />
             <Route path="/color-game" element={<AddColor />} />
             <Route path="*" element={<NotFound />} />
@@ -204,51 +200,4 @@ export default function App() {
     </ThemeProvider >
   );
 }
-function MovieDetails({ movieList }) {
-  const { id } = useParams();
-  const movie = movieList[id];
-  console.log(movie);
-
-  const styles = {
-    color: movie.rating > 8.5 ? "green" : "crimson",
-  };
-  const navigate = useNavigate();
-
-  return (
-    <div>
-      <iframe
-        width="100%"
-        height="650"
-        src={movie.trailer}
-        title="RRR Trailer (Telugu) - NTR, Ram Charan, Ajay Devgn, Alia Bhatt | SS Rajamouli | 25th March 2022" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-
-      </iframe>
-      <div className="movie-detail-container">
-
-        <div className="movie-spec">
-          <h2 className="movie-name">
-            {movie.name}
-          </h2>
-          <p style={styles} className="movie-rating">
-            ⭐{movie.rating}
-          </p>
-        </div>
-        <p className="movie-summary">{movie.summary}</p>
-      </div >
-      <Button
-        startIcon={<KeyboardBackspaceIcon />}
-        variant="contained"
-        onClick={() => navigate(-1)}
-        aria-label="Movie details"
-      >
-        Back
-      </Button >
-    </div >
-
-  )
-
-}
-
-
 

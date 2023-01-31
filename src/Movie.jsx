@@ -13,7 +13,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from "react-router-dom";
 
 
-export function Movie({ movie, id }) {
+export function Movie({ movie, id, deleteButton }) {
     // Manage state | Independent | Accelerator
     const [Show, setShow] = useState(true);
     const styles = {
@@ -56,7 +56,7 @@ export function Movie({ movie, id }) {
 
             </CardContent>
             <CardActions>
-                <Counter />
+                <Counter />{deleteButton}
             </CardActions>
 
         </Card >
