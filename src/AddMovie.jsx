@@ -1,30 +1,45 @@
-import { useState } from "react";
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
+const formValidationSchema = yup.object({
+    name:
+        yup.string().required("A cool name is in need😊"),
+    poster:
+        yup.string().required("A cool poster is in need😊").min(4, "Need a bigger poster 😊").url(),
+    rating:
+        yup.number().required("A cool rating is in need😊").min(0, "Need a bigger rating 😊").max(10),
+    summary:
+        yup.string().required("A cool summary is in need😊").min(20, "Need a bigger summary 😊"),
+    trailer:
+        yup.string().required("A cool trailer is in need😊").min(4, "Need a bigger trailer 😊").url(),
+},
+);
 
 export function AddMovie() {
-    const [name, setName] = useState("");
-    const [poster, setPoster] = useState("");
-    const [rating, setRating] = useState("");
-    const [summary, setSummary] = useState("");
-    const [trailer, setTrailer] = useState("");
 
+    const { handleSubmit, handleChange, handleBlur, values, touched, errors
+    } = useFormik({
+        initialValues: {
+            name: "",
+            poster: "",
+            rating: "",
+            summary: "",
+            trailer: "",
+        },
 
+        validationSchema: formValidationSchema,
+        onSubmit: (newMovie) => {
+            console.log("Form values", newMovie),
+                addMovie(newMovie);
+        },
+    });
     const navigate = useNavigate();
-
-    const addMovie = async () => {
-
-        const newMovie = {
-            name: name,
-            poster: poster,
-            rating: rating,
-            summary: summary,
-            trailer: trailer,
-        };
+    const addMovie = async (newMovie) => {
         console.log(newMovie);
-
         await fetch('https://63d75fb75dbd723244249e8b.mockapi.io/movies', {
             method: "POST",
             body: JSON.stringify(newMovie),
@@ -37,35 +52,71 @@ export function AddMovie() {
 
     };
     return (
-        <div className="add-movie-form">
+        <form onSubmit={handleSubmit} className="add-movie-form">
             <TextField
-                onChange={(event) => setName(event.target.value)}
+                name="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
                 label="Name"
-                variant="outlined" />
+                variant="outlined"
+                error={touched.name && errors.name}
+                helperText={touched.name && errors.name ? errors.name : null}
+
+            />
+
 
             <TextField
-                onChange={(event) => setPoster(event.target.value)}
+                name="poster"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.poster}
                 label="Poster"
-                variant="outlined" />
+                variant="outlined"
+                error={touched.poster && errors.poster}
+                helperText={touched.poster && errors.poster ? errors.poster : null}
+            />
+
             <TextField
-                onChange={(event) => setRating(event.target.value)}
+                name="rating"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.rating}
                 label="Rating"
-                variant="outlined" />
+                variant="outlined"
+                error={touched.rating && errors.rating}
+                helperText={touched.rating && errors.rating ? errors.rating : null}
+            />
+
             <TextField
-                onChange={(event) => setSummary(event.target.value)}
+                name="summary"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.summary}
                 label="Summary"
-                variant="outlined" />
+                variant="outlined"
+                error={touched.summary && errors.summary}
+                helperText={touched.summary && errors.summary ? errors.summary : null}
+            />
+
             <TextField
-                onChange={(event) => setTrailer(event.target.value)}
+                name="trailer"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.trailer}
                 label="Trailer"
-                variant="outlined" />
+                variant="outlined"
+                error={touched.trailer && errors.trailer}
+                helperText={touched.trailer && errors.trailer ? errors.trailer : null}
+            />
+
             {/*Copy existing movieList & add newMovie to it  */}
             <Button
-                onClick={addMovie}
+                type="submit"
                 variant="contained">
                 Add Movie
             </Button>
-        </div>
+        </form>
 
     );
 
