@@ -20,6 +20,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { AddMovie } from "./AddMovie";
 import { MovieDetails } from "./MovieDetails";
 import { BasicForm } from "./BasicForm";
+import { EditMovie } from "./EditMovie";
 
 
 function App() {
@@ -92,6 +93,8 @@ function App() {
             <Route path="/movies" element={<MovieList />} />
             {/* //id -> dynamic // */}
             <Route path="/movies/:id" element={<MovieDetails />} />
+            {/* /movies/edit/:id */}
+            <Route path="/movies/edit/:id" element={<EditMovie />} />
             <Route path="/movies/add" element={<AddMovie />} />
             <Route path="/color-game" element={<AddColor />} />
             <Route path="/basic-form" element={<BasicForm />} />
@@ -102,6 +105,7 @@ function App() {
     </ThemeProvider >
   );
 }
+
 export default App;//default export
 
 
